@@ -4,12 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ParlamentTimer
 TEMPLATE = app
+RC_ICONS = timer.ico
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -32,3 +33,6 @@ HEADERS += \
 
 FORMS += \
         parlamenttimer.ui
+
+RESOURCES += \
+    resources.qrc
