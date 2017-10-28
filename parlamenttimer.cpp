@@ -18,10 +18,12 @@ ParlamentTimer::ParlamentTimer(QWidget *parent) :
 
     clock = new Clock;
     clock->setText(ui->timerEdit->text());
+    clock->setAlignment(Qt::AlignRight);
 
     loadSettings();
 
     clock->setFont(textFont);
+    clock->resize(clock->fontMetrics().boundingRect("000:00").size());
     clock->setColor(textColor);
     clock->show();
 
@@ -32,6 +34,19 @@ ParlamentTimer::ParlamentTimer(QWidget *parent) :
 
     ui->volumeSlider->setValue(mainVolume);
     updateMusicBox();
+
+    blinkTimer = new QTimer(this);
+    blinkTimer->setTimerType(Qt::PreciseTimer);
+    connect(blinkTimer, &QTimer::timeout, this, &ParlamentTimer::timerColorBlink);
+
+}
+
+void ParlamentTimer::timerColorBlink()
+{
+    if (clock->getColor() == textColor)
+        clock->setColor(Qt::red);
+    else
+        clock->setColor(textColor);
 }
 
 ParlamentTimer::~ParlamentTimer()
@@ -180,6 +195,7 @@ void ParlamentTimer::on_timerEdit_timeChanged(const QTime &time)
             effect->setSource(QUrl::fromLocalFile(musicDir.absolutePath() + QDir::separator() + ui->musicBox->currentText() + ".wav"));
             effect->setVolume(mainVolume/100.0);
             effect->play();
+            blinkTimer->start(200);
             connect(effect, &QSoundEffect::playingChanged, this, &ParlamentTimer::onMusicStop);
         }
     }
@@ -193,6 +209,8 @@ void ParlamentTimer::onMusicStop()
     if (effect->isPlaying())
         return;
     effect->deleteLater();
+    blinkTimer->stop();
+    clock->setColor(textColor);
 }
 
 void ParlamentTimer::on_fontButton_clicked()
@@ -202,6 +220,7 @@ void ParlamentTimer::on_fontButton_clicked()
     if (ok) {
         textFont = font;
         clock->setFont(font);
+        clock->resize(clock->fontMetrics().boundingRect("000:00").size());
         clock->adjustSize();
     }
 }
@@ -275,6 +294,7 @@ void Clock::setUpdatedText(const QString &text)
 
 void Clock::setColor(const QColor &color)
 {
+    this->color = color;
     QString value = QString("%1, %2, %3, %4").arg(QString::number(color.red()),
                                          QString::number(color.green()),
                                          QString::number(color.blue()),

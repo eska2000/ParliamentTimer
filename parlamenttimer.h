@@ -14,12 +14,14 @@ class Clock : public QLabel
     Q_OBJECT
 
     QPoint dragPosition;
+    QColor color;
 
 public:
     Clock();
     virtual ~Clock() {}
     void setUpdatedText(const QString &);
     void setColor(const QColor &);
+    QColor getColor() { return color; }
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -68,6 +70,8 @@ private slots:
 
     void on_checkBox_clicked(bool checked);
 
+    void timerColorBlink();
+
 private:
     Ui::ParlamentTimer *ui;
 
@@ -87,6 +91,8 @@ private:
     QTimer *mainTimer;
     void updateButtons(const QTime &time);
     void updateMusicBox();
+
+    QTimer *blinkTimer;
 
 protected:
     void closeEvent(QCloseEvent *) override { QApplication::quit(); }

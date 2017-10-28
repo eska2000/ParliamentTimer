@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
-    <height>564</height>
+    <width>409</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,7 +89,13 @@
            </font>
           </property>
           <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
+           <enum>Qt::StrongFocus</enum>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::PlusMinus</enum>
+          </property>
+          <property name="keyboardTracking">
+           <bool>true</bool>
           </property>
           <property name="maximumTime">
            <time>
@@ -368,6 +374,25 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>timerEdit</tabstop>
+  <tabstop>startButton</tabstop>
+  <tabstop>stopButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>plus1Button</tabstop>
+  <tabstop>plus3Button</tabstop>
+  <tabstop>plus5Button</tabstop>
+  <tabstop>plus10Button</tabstop>
+  <tabstop>plus20Button</tabstop>
+  <tabstop>plus30Button</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>fontButton</tabstop>
+  <tabstop>colorButton</tabstop>
+  <tabstop>musicBox</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>volumeSlider</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
